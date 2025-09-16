@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Test</title>
+</head>
+<body>
+    <h1>Model Loading Test</h1>
+    <div id="status">Testing...</div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    
+    <script>
+        async function testModel() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                statusDiv.innerHTML = 'Loading model...';
+                
+                const modelURL = "./my_model/model.json";
+                const metadataURL = "./my_model/metadata.json";
+                
+                // Test file existence
+                const modelResponse = await fetch(modelURL);
+                const metadataResponse = await fetch(metadataURL);
+                
+                statusDiv.innerHTML += `<br>Model response: ${modelResponse.status}`;
+                statusDiv.innerHTML += `<br>Metadata response: ${metadataResponse.status}`;
+                
+                if (modelResponse.ok && metadataResponse.ok) {
+                    // Try to load with Teachable Machine
+                    const model = await tmImage.load(modelURL, metadataURL);
+                    const classes = model.getTotalClasses();
+                    
+                    statusDiv.innerHTML += `<br>✅ Success! Model loaded with ${classes} classes`;
+                } else {
+                    statusDiv.innerHTML += `<br>❌ File access failed`;
+                }
+                
+            } catch (error) {
+                statusDiv.innerHTML += `<br>❌ Error: ${error.message}`;
+                console.error('Test error:', error);
+            }
+        }
+        
+        // Run test when page loads
+        window.addEventListener('load', testModel);
+    </script>
+</body>
+</html>
