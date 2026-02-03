@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teachable Machine Image Classifier</title>
+    <title>Onion Shelf Life Prediction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,34 +65,53 @@
         
         #label-container {
             margin: 20px 0;
-            text-align: left;
-            max-width: 400px;
+            text-align: center;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
         
-        #label-container div {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            border-left: 4px solid #4CAF50;
+        .prediction-result {
+            padding: 30px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
-        .prediction-high {
-            background-color: #e8f5e8 !important;
-            border-left-color: #4CAF50 !important;
+        .shelf-life-number {
+            font-size: 72px;
             font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
-        .prediction-medium {
-            background-color: #fff3cd !important;
-            border-left-color: #ffc107 !important;
+        .shelf-life-label {
+            font-size: 24px;
+            margin: 10px 0;
+            opacity: 0.9;
         }
         
-        .prediction-low {
-            background-color: #f8f9fa !important;
-            border-left-color: #6c757d !important;
+        .confidence-bar {
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            background-color: white;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .additional-info {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.8;
         }
         
         .status {
@@ -145,7 +164,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>🤖 Teachable Machine Image Classifier</h1>
+        <h1>🧅 Onion Shelf Life Prediction</h1>
+        <p style="color: #666; margin-bottom: 20px;">AI-powered image analysis for predicting storage duration in days</p>
         
         <div id="status" class="status" style="display: none;"></div>
         
@@ -155,9 +175,9 @@
         </div>
         
         <div class="file-input-container" id="file-drop-area">
-            <p>📁 Upload an image to classify</p>
+            <p>📁 Upload onion image for shelf life analysis</p>
             <input type="file" id="image-input" accept="image/*" onchange="handleImageUpload(event)">
-            <p style="font-size: 12px; color: #666;">Or drag and drop an image here</p>
+            <p style="font-size: 12px; color: #666;">Or drag and drop an onion image here</p>
         </div>
         
         <img id="image-preview" style="display: none;">
@@ -165,12 +185,19 @@
         <div id="webcam-container"></div>
         
         <div id="label-container"></div>
+        
+        <div id="features-container" style="display: none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 10px; text-align: left;">
+            <h3 style="margin-top: 0; color: #333;">📊 Extracted Features</h3>
+            <div id="features-content"></div>
+        </div>
     </div>
 
     <!-- TensorFlow.js and Teachable Machine libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     
-    <script src="app.js"></script>
+    <!-- Feature extraction module -->
+    <script src="feature_extraction.js?v=2.0"></script>
+    <script src="app.js?v=2.0"></script>
 </body>
 </html>

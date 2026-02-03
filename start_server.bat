@@ -1,5 +1,5 @@
 @echo off
-echo Starting Teachable Machine Image Classifier...
+echo Starting Onion Shelf Life Prediction System...
 echo.
 echo Make sure you have Python installed on your system.
 echo.

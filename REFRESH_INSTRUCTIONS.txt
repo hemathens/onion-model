@@ -1,0 +1,72 @@
+========================================
+HOW TO PROPERLY REFRESH THE PROJECT
+========================================
+
+Your project is running on http://127.0.0.1:5500 (Live Server)
+
+STEP 1: HARD REFRESH THE BROWSER
+---------------------------------
+Press one of these key combinations to clear cache:
+
+Windows/Linux:
+- Chrome/Edge: Ctrl + Shift + R  OR  Ctrl + F5
+- Firefox: Ctrl + Shift + R  OR  Ctrl + F5
+
+Mac:
+- Chrome/Edge: Cmd + Shift + R
+- Firefox: Cmd + Shift + R
+
+STEP 2: VERIFY FILES LOADED
+----------------------------
+1. Open Browser Console (F12)
+2. Go to "Console" tab
+3. You should see:
+   === FEATURE_EXTRACTION.JS LOADED - VERSION 2.0 ===
+   === APP.JS LOADED - VERSION 2.0 ===
+   Onion Shelf Life Prediction System loaded
+
+If you DON'T see these messages:
+- Close the browser completely
+- Reopen and go to http://127.0.0.1:5500
+- Hard refresh again
+
+STEP 3: TEST THE FEATURES
+--------------------------
+1. Upload an onion image OR start webcam
+2. Check console for:
+   === REAL EXTRACTED FEATURES ===
+   {black_spots_count: X, surface_texture_score: Y, ...}
+
+3. Watch the "Extracted Features" section update with real values
+
+STEP 4: IF STILL NOT WORKING
+-----------------------------
+1. Stop Live Server (click "Port: 5500" in VS Code status bar)
+2. Clear browser cache completely:
+   - Chrome: Settings > Privacy > Clear browsing data > Cached images
+3. Restart Live Server
+4. Open http://127.0.0.1:5500 in new incognito/private window
+
+WHAT SHOULD WORK NOW:
+---------------------
+✓ Features extract from REAL webcam image
+✓ Black spots count changes with different objects
+✓ Surface texture varies based on edges
+✓ Skin condition reflects brightness
+✓ Damage indicators toggle dynamically
+✓ Sprouting detects green colors
+✓ Everything updates every 1 second in webcam
+
+TROUBLESHOOTING:
+----------------
+If features show "undefined":
+- Check console for errors
+- Verify feature_extraction.js loaded (see version log)
+- Make sure featureExtractor is initialized
+
+If features don't change:
+- Verify you see "REAL EXTRACTED FEATURES" in console
+- Check that webcam is actually running
+- Try uploading different images to test
+
+========================================

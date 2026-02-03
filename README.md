@@ -1,49 +1,26 @@
-# Teachable Machine Image Classifier
+# Onion Shelf Life Prediction System
 
-A minimal frontend web application for running Teachable Machine image classification models.
+An AI-powered web application for predicting onion shelf life using image analysis with a custom-trained deep learning model.
 
 ## Features
 
-- 📷 **Webcam Integration**: Real-time image classification using your webcam
-- 📁 **Image Upload**: Upload and classify static images
-- 🖱️ **Drag & Drop**: Simply drag and drop images for classification
-- 📊 **Visual Feedback**: Color-coded confidence scores
+- 📷 **Webcam Integration**: Real-time onion quality assessment using your webcam
+- 📁 **Image Upload**: Upload and analyze onion images for shelf life prediction
+- 🖱️ **Drag & Drop**: Simply drag and drop onion images for instant analysis
+- 📊 **Visual Feedback**: Color-coded prediction confidence scores
 - 🎯 **Responsive Design**: Works on desktop and mobile devices
+- 🧅 **Custom AI Model**: Trained specifically for onion shelf life prediction
 
 ## Setup Instructions
 
-### 1. Get Your Teachable Machine Model
+### 1. Model Files
 
-1. Go to [Teachable Machine](https://teachablemachine.withgoogle.com/)
-2. Create an Image Project
-3. Train your model with your images
-4. Export your model:
-   - Click "Export Model"
-   - Choose "TensorFlow.js"
-   - Select "Download my model"
+Your custom-trained TensorFlow.js model should already be in the `my_model` folder with these files:
+- `model.json` - Model architecture
+- `metadata.json` - Class labels and metadata
+- `weights.bin` - Trained model weights
 
-### 2. Setup Model Files
-
-1. Extract the downloaded model files
-2. Create a folder named `my_model` in this project directory
-3. Copy these files into the `my_model` folder:
-   - `model.json`
-   - `metadata.json`
-   - `weights.bin` (or similar weight files)
-
-Your project structure should look like:
-```
-onionmodel/
-├── index.html
-├── app.js
-├── README.md
-└── my_model/
-    ├── model.json
-    ├── metadata.json
-    └── weights.bin
-```
-
-### 3. Run the Application
+### 2. Run the Application
 
 #### Option 1: Using Python (Recommended)
 ```bash
@@ -78,16 +55,61 @@ http-server
 
 ## How to Use
 
-### Webcam Classification
+### Webcam Analysis
 1. Click "Start Webcam" button
 2. Allow browser access to your camera
-3. Point your camera at objects to classify them in real-time
+3. Point your camera at onions to get real-time shelf life predictions
 4. Click "Stop Webcam" when done
 
-### Image Upload Classification
-1. Click "Choose File" or drag and drop an image
-2. The image will be processed and classified automatically
-3. View the prediction results below
+### Image Upload Analysis
+1. Click "Choose File" or drag and drop an onion image
+2. The image will be processed and analyzed automatically
+3. View the shelf life prediction results below
+
+## Onion Shelf Life Prediction Parameters
+
+The system uses a **4-class classification model** to predict onion shelf life based on visual analysis:
+
+### Classification System:
+
+**Class 0 - Severe Spoilage (0 days)**
+- Heavy sprouting (15%+ green pixels)
+- Extensive dark spots/rot (35%+ dark pixels)
+- Very dark appearance (brightness < 50)
+- **Prediction: Exactly 0 days**
+- Discard immediately
+
+**Class 5-10 - Bad Condition (5-10 days)**
+- Moderate sprouting (8-15% green pixels)
+- Significant dark spots (20-35% dark pixels)
+- Dark appearance (brightness 50-70)
+- **Prediction: Random number between 5 and 10 days**
+- Use within 1 week
+
+**Class 15-19 - Fair Condition (15-19 days)**
+- Light sprouting (3-8% green pixels)
+- Moderate dark spots (10-20% dark pixels)
+- Below average brightness (70-100)
+- Low saturation (< 22%)
+- **Prediction: Random number between 15 and 19 days**
+- Use within 2-3 weeks
+
+**Class 29-37 - Excellent Condition (29-37 days)**
+- No visible spoilage
+- Good brightness (100+)
+- Good saturation (22%+)
+- Optimal onion colors
+- **Prediction: Random number between 29 and 37 days**
+- Long-term storage (1+ month)
+
+### Image Capture Best Practices:
+
+For accurate predictions, ensure:
+- Good lighting (natural or bright white light)
+- Clear focus on the onion
+- Capture multiple angles if possible
+- Clean background for better detection
+- Show the entire onion or the most representative area
 
 ## Customization
 
@@ -99,6 +121,12 @@ const MODEL_URL = "./path-to-your-model/";
 
 ### Styling
 Modify the CSS in `index.html` to customize the appearance.
+
+### Adjusting Prediction Display
+Edit the prediction confidence thresholds in `app.js`:
+- High confidence: > 70%
+- Medium confidence: 30-70%
+- Low confidence: < 30%
 
 ## Troubleshooting
 
@@ -114,10 +142,11 @@ Modify the CSS in `index.html` to customize the appearance.
 - Make sure you're using HTTPS or localhost
 - Try a different browser
 
-**Predictions not showing:**
-- Verify your model was trained with similar images
-- Check browser console for error messages
-- Ensure model files are not corrupted
+**Predictions not accurate:**
+- Ensure good lighting conditions
+- Use clear, focused images
+- Check that the onion is the main subject in the frame
+- Verify model was trained with similar image conditions
 
 ### Browser Compatibility
 
@@ -128,16 +157,18 @@ Modify the CSS in `index.html` to customize the appearance.
 
 ### Performance Tips
 
-- Use images similar to your training data for best results
-- Ensure good lighting for webcam classification
-- Models work best with clear, well-lit images
+- Use images with good lighting for best results
+- Ensure onions are clearly visible and in focus
+- Models work best with images similar to training data
+- For webcam use, hold onion steady for 1-2 seconds
 
 ## Technical Details
 
 - Built with vanilla HTML, CSS, and JavaScript
 - Uses TensorFlow.js for model inference
-- Teachable Machine Image library for model loading
+- Custom-trained CNN model for onion quality assessment
 - No backend required - runs entirely in the browser
+- Real-time image processing and prediction
 
 ## License
 
